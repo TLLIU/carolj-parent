@@ -1,0 +1,55 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    jkube.io/scm-url: https://https:://github.com/carol/carol-sample
+    jkube.io/issue-system: Redmine
+    jkube.io/issue-tracker-url: https://redmine.fic.udc.es/project/carol-sample/issues
+    jkube.io/scm-tag: head
+  labels:
+    app: carol-sample
+    provider: jkube
+    version: 0.0.1-SNAPSHOT
+    group: idv.tlliu.springboot
+  name: carol-sample
+spec:
+  replicas: 1
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: carol-sample
+      provider: jkube
+      group: idv.tlliu.springboot
+  template:
+    metadata:
+      annotations:
+        jkube.io/scm-url: https://https:://github.com/carol/carol-sample
+        jkube.io/issue-system: Redmine
+        jkube.io/issue-tracker-url: https://redmine.fic.udc.es/project/carol-sample/issues
+        jkube.io/scm-tag: head
+      labels:
+        app: carol-sample
+        provider: jkube
+        version: 0.0.1-SNAPSHOT
+        group: idv.tlliu.springboot
+    spec:
+      containers:
+      - env:
+        - name: KUBERNETES_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: HOSTNAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        image: https:://github.com:5050/carol/carol-sample:latest
+        imagePullPolicy: Always
+        name: deploy-carol-sample
+        securityContext:
+          privileged: false
+        ports:
+        - containerPort: 8080
+      imagePullSecrets:
+        - name: tlliu

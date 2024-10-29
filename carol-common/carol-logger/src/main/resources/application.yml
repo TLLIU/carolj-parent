@@ -1,0 +1,14 @@
+server:
+  port: 8000
+
+logging:
+  level:
+    org.springframework.security: trace
+
+#spring:
+
+springdoc:
+  swagger-ui:
+    path: "/"
+  api-docs:
+    path: "/api-docs"

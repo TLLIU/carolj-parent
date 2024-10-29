@@ -1,0 +1,8 @@
+server:
+  port: ${port:8080}
+app:
+  websocketEndpoint: /websocket-endpoint
+  simpleBrokerDestinations:
+    - /topic
+    - /queue
+  applicationDestinationPrefix: /app

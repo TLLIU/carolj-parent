@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: carol-sample-ingress
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /carol-sample
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /carol-sample
+            pathType: Prefix
+            backend:
+              service:
+                name: carol-sample
+                port:
+                  number: 8080

@@ -1,24 +1,28 @@
 package idv.tlliu.springboot.sample.model.services;
 
-import static org.junit.Assert.assertEquals;
+//import static org.junit.Assert.assertEquals;
 
 import jakarta.transaction.Transactional;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+//import org.junit.Test;
+//import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
+//import org.springframework.test.context.junit4.SpringRunner;
 
-import idv.tlliu.springboot.sample.model.common.exceptions.DuplicateInstanceException;
-import idv.tlliu.springboot.sample.model.common.exceptions.InstanceNotFoundException;
-import idv.tlliu.springboot.sample.model.entities.Users;
+import idv.tlliu.springboot.carol.model.entity.User;
+import idv.tlliu.springboot.carol.sample.model.common.exceptions.DuplicateInstanceException;
+import idv.tlliu.springboot.carol.sample.model.common.exceptions.InstanceNotFoundException;
+import idv.tlliu.springboot.carol.sample.model.services.UserService;
 
 /**
  * The Class UserServiceTest.
  */
-@RunWith(SpringRunner.class)
+//@RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("test")
 @Transactional
@@ -34,8 +38,8 @@ public class UserServiceTest {
 	 * @param userName the user name
 	 * @return the user
 	 */
-	private Users createUser(String userName) {
-		return new Users(userName, "password", "firstName", "lastName", userName + "@" + userName + ".com");
+	private User createUser(String userName) {
+		return new User(userName, "password", "firstName", "lastName", userName + "@" + userName + ".com", "12345678", 1, 1);
 	}
 
 	/**
@@ -47,14 +51,14 @@ public class UserServiceTest {
 	@Test
 	public void testSignUpAndLoginFromId() throws DuplicateInstanceException, InstanceNotFoundException {
 
-		Users user = createUser("user");
+	  User user = createUser("user");
 
 		userService.signUp(user);
 
-		Users loggedInUser = userService.loginFromId(user.getId());
+		User loggedInUser = userService.loginFromId(user.getId());
 
 		assertEquals(user, loggedInUser);
-		assertEquals(Users.RoleType.USER, user.getRole());
+		assertEquals(1, user.getRole());
 
 	}
 }

@@ -9,7 +9,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="roles")  //表示开启正向工程,运行后会自动常见roles这个表
+@Table(name="CAROL_ROLES")  //表示开启正向工程,运行后会自动常见roles这个表
 public class Roles {
   
   @Id
@@ -19,15 +19,15 @@ public class Roles {
   @Column(name="ROLE_NAME")
   private String roleName;
   
-  @OneToOne(mappedBy="roles")
-  private User user;
+//  @OneToOne(mappedBy="roles")
+//  private User user;
   
-  public User getUser() {
-    return user;
-  }
-  public void setUser(User user) {
-    this.user = user;
-  }
+//  public User getUser() {
+//    return user;
+//  }
+//  public void setUser(User user) {
+//    this.user = user;
+//  }
   public Integer getId() {
     return id;
   }

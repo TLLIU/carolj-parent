@@ -6,6 +6,7 @@ import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -13,14 +14,15 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
 /**
  * The Class User.
  */
 @Entity
-//@Table(name="CAROL_USER") //User is reserved keyword in h2 so we change table name here. 
-public class User extends AbstractAuditableEntity implements Serializable{
+@Table(name="CAROL_USER") //User is reserved keyword in h2 so we change table name here. 
+public class User extends AbstractAuditableEntity{
 
   /** The id. */
   @Id
@@ -48,9 +50,18 @@ public class User extends AbstractAuditableEntity implements Serializable{
   /** The phone number*/
   @Column(name="PHONE_NUMBER")
   private String phoneNumber;
-  
-  @OneToOne(cascade=CascadeType.ALL)
-  @JoinColumn(name="id")
+
+  //cascade:表的级联操作
+  //@OneToOne(fetch=FetchType.LAZY,cascade = CascadeType.ALL) //JPA注释： 一对一 关系
+   
+  //referencedColumnName：参考列名,默认的情况下是列表的主键
+  //nullable=是否可以为空，
+  //insertable：是否可以插入，
+  //updatable：是否可以更新
+  //columnDefinition=列定义，
+  //foreignKey=外键  
+  @OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+  @JoinColumn(name="user_profile_id", referencedColumnName="id")
   private UserProfile userProfile;
 
   /** The role type id. */
@@ -62,10 +73,10 @@ public class User extends AbstractAuditableEntity implements Serializable{
   private Integer country;
   
   // @ManyToMany(mappedBy ="groups", fetch=FetchType.LAZY)
-  @ManyToMany
-  @JoinTable(name = "USER_AUTHGROUP", joinColumns = { @JoinColumn(name = "USER_ID") }, inverseJoinColumns = {
-      @JoinColumn(name = "GROUP_ID") })
-  private List<AuthGroup> groups;
+//  @ManyToMany
+//  @JoinTable(name = "USER_AUTHGROUP", joinColumns = { @JoinColumn(name = "USER_ID") }, inverseJoinColumns = {
+//      @JoinColumn(name = "GROUP_ID") })
+//  private List<AuthGroup> groups;
   /**
    * Instantiates a new user.
    */
@@ -82,7 +93,7 @@ public class User extends AbstractAuditableEntity implements Serializable{
    * @param email     the email
    */
   public User(String userName, String password, String firstName, String lastName, String email, 
-      String phoneNumber, Integer role, int countryId) {
+      String phoneNumber, Integer role, int countryId, UserProfile userProfile) {
 
     this.userName = userName;
     this.password = password;
@@ -92,6 +103,7 @@ public class User extends AbstractAuditableEntity implements Serializable{
     this.phoneNumber = phoneNumber;
     this.role = role;
     this.country = countryId;
+    this.userProfile = userProfile;
 
   }
 
@@ -239,12 +251,22 @@ public class User extends AbstractAuditableEntity implements Serializable{
     this.country = country;
   }
 
-  public List<AuthGroup> getGroups() {
-    return groups;
+//  public List<AuthGroup> getGroups() {
+//    return groups;
+//  }
+//
+//  public void setGroups(List<AuthGroup> groups) {
+//    this.groups = groups;
+//  }
+
+  public UserProfile getUserProfile() {
+    return userProfile;
   }
 
-  public void setGroups(List<AuthGroup> groups) {
-    this.groups = groups;
+  public void setUserProfile(UserProfile userProfile) {
+    this.userProfile = userProfile;
   }
+  
+  
 
 }

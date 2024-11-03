@@ -12,14 +12,9 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="USER_PROFILE")
+@Table(name="CAROL_USER_PROFILE")
 public class UserProfile implements Serializable{
   
-  /**
-   * 
-   */
-  private static final long serialVersionUID = -4021362599209703313L;
-
   @Id
   @GeneratedValue(strategy=GenerationType.AUTO)
   @Column(name="id")
@@ -28,16 +23,18 @@ public class UserProfile implements Serializable{
   @Column(name="ALIAS")
   private String alias; 
   
-  @OneToOne(mappedBy="userProfile")
-  private User user;
+  //@OneToOne
+  //private User user;
 
-//  
-//  public UserProfile(BigDecimal id, String alias, User user) {
-//    super();
-//    this.id = id;
-//    this.alias = alias;
-//    this.user = user;
-//  }
+  public UserProfile() {
+    
+  }
+  
+  public UserProfile(BigDecimal id, String alias) {
+    super();
+    this.id = id;
+    this.alias = alias;
+  }
 
   public BigDecimal getId() {
     return id;
@@ -55,12 +52,12 @@ public class UserProfile implements Serializable{
     this.alias = alias;
   }
 
-  public User getUser() {
-    return user;
-  }
-
-  public void setUser(User user) {
-    this.user = user;
-  }
+//  public User getUser() {
+//    return user;
+//  }
+//
+//  public void setUser(User user) {
+//    this.user = user;
+//  }
 
 }

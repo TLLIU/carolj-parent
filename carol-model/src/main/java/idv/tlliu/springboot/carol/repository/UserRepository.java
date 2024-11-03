@@ -3,6 +3,7 @@ package idv.tlliu.springboot.carol.repository;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -50,8 +51,8 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
   //         + "(select globalProcessInstanceId.uuid from com.citi.kyc.core.services.brms.domain.TaskGlobal where id.uuid= :globalWorkItemId) and tg.globalProcessInstanceId.uuid = xref.id.uuid order by tg.localTaskID")
   // List<PeriodicAttestDTO> getAttestationSummaryById(@Param("globalWorkItemId") String globalWorkItemId);
   
-  List<User> findByCountry(Integer country, Pageable pageable);
+  Page<User> findByCountry(Integer country, Pageable pageable);
 
-  List<User> findByNameIn(List<String> names, Pageable pageable);
+  List<User> findByUserNameIn(List<String> userNames, Pageable pageable);
 
 }

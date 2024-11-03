@@ -1,5 +1,6 @@
 package idv.tlliu.springboot.carol.model.entity;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 
@@ -23,7 +24,7 @@ import jakarta.persistence.TemporalType;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class AbstractAuditableEntity {
+public abstract class AbstractAuditableEntity implements Serializable{
 //  @Id
 //  @Column(name="id")
 //  private String entity_id;
@@ -65,4 +66,18 @@ public abstract class AbstractAuditableEntity {
   public ZonedDateTime getUpdatedTime() {
     return this.updatedTime;
   }
+  public void setCreatedUser(String createdUser) {
+    this.createdUser = createdUser;
+  }
+  public void setUpdatedUser(String updatedUser) {
+    this.updatedUser = updatedUser;
+  }
+  public void setCreatedTime(ZonedDateTime createdTime) {
+    this.createdTime = createdTime;
+  }
+  public void setUpdatedTime(ZonedDateTime updatedTime) {
+    this.updatedTime = updatedTime;
+  }
+  
+  
 }
